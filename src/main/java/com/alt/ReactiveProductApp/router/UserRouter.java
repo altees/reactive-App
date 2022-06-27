@@ -13,6 +13,9 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 @Slf4j
 public class UserRouter {
 
+    public static final String GET_USER_URI = "/user/{id}";
+    public static final String GET_ALL_USER_URI = "/user";
+    public static final String SAVE_USER_URI = "/user";
     @Autowired
     private UserHandler userHandler;
 
@@ -21,9 +24,9 @@ public class UserRouter {
         log.info("Route function invoked...");
         return RouterFunctions.
                  route()
-                .GET("/user/{id}", request -> userHandler.getUser(request)).
-                 GET("/user", request -> userHandler.getAllUser(request)).
-                 POST("/user", request -> userHandler.saveUser(request))
+                .GET(GET_USER_URI, request -> userHandler.getUser(request)).
+                 GET(GET_ALL_USER_URI, request -> userHandler.getAllUser(request)).
+                 POST(SAVE_USER_URI, request -> userHandler.saveUser(request))
                 .build();
     }
 }
