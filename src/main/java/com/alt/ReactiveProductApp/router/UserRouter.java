@@ -22,7 +22,8 @@ public class UserRouter {
         return RouterFunctions.
                  route()
                 .GET("/user/{id}", request -> userHandler.getUser(request)).
-                 GET("/user", request -> userHandler.getAllUser(request))
+                 GET("/user", request -> userHandler.getAllUser(request)).
+                 POST("/user", request -> userHandler.saveUser(request))
                 .build();
     }
 }

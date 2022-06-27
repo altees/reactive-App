@@ -25,7 +25,7 @@ public class UserHandler {
         log.info(user.toString());
         return ServerResponse
                 .ok()
-                .contentType(MediaType.TEXT_EVENT_STREAM)
+                .contentType(MediaType.APPLICATION_JSON)
                 .body(user, User.class);
     }
 
@@ -35,5 +35,15 @@ public class UserHandler {
                 .ok()
                 .contentType(MediaType.TEXT_EVENT_STREAM)
                 .body(allUser, User.class);
+    }
+
+    public Mono<ServerResponse> saveUser(ServerRequest serverRequest) {
+        Mono<User> userMono = serverRequest.bodyToMono(User.class);
+        return userMono.flatMap(user -> {
+            return ServerResponse
+                    .ok()
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(userService.saveUser(user), User.class);
+        });
     }
 }
